@@ -1,0 +1,48 @@
+.porjects-header {
+    display:                flex;
+    position:               relative;
+    min-height:             40vh;
+    align-items:            center;
+    justify-content:        center;
+    background-size:        cover;
+    background-image:       url('../../../assets/background.jpg');
+    background-repeat:      none;
+    background-position:    center;
+    mat-toolbar {
+        top:                0px;
+        left:               0px;
+        right:              0px;
+        color:              #FFF;
+        height:             50px;
+        position:           absolute;
+        min-height:         50px;
+        border-bottom:      1px solid #212121;
+        background-color:   transparent;
+        button {
+            font-size:      12px;
+            text-transform: uppercase;
+        }
+        [mat-icon-button] img {
+            width:      24px;
+            margin-top: -1px;
+        }
+    }
+    h1 {
+        color:      #FFF;
+        font-weight: 400;
+    }
+}
+
+mat-grid-list {
+    background-color: #F5F5F5;
+    mat-grid-tile {
+        outline:    none !important;
+        img {
+            width: 150px;
+        }
+        mat-grid-tile-footer {
+            align-content:      center;
+            justify-content:    center;
+        }
+    }
+}

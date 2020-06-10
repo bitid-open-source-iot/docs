@@ -1,0 +1,67 @@
+<header>
+    <h1>
+        {{ project }}
+    </h1>
+
+    <p>
+        {{ endpoint.title }}
+    </p>
+</header>
+
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+
+<mat-toolbar>
+    <mat-toolbar-row>
+        <button mat-icon-button back-button>
+            <mat-icon>
+                arrow_back
+            </mat-icon>
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                method
+            </th>
+            <th>
+                url
+            </th>
+            <th>
+                scopes
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>
+                {{ endpoint.method }}
+            </td>
+            <td style="text-transform: lowercase;" allow-select>
+                {{ endpoint.url }}
+            </td>
+            <td style="text-transform: none;">
+                {{ endpoint.scopes | scopes }}
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>
+    request
+</h2>
+
+<code>
+    <pre allow-select>{{ endpoint.request | json }}</pre>
+</code>
+
+<h2>
+    response
+</h2>
+
+<code>
+    <pre allow-select>{{ endpoint.response | json }}</pre>
+</code>

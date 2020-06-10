@@ -1,0 +1,45 @@
+<mat-toolbar>
+    <mat-toolbar-row>
+        <label for="signin page">
+            sign in
+        </label>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+
+<div fxLayout="row">
+    <form [formGroup]="form" (ngSubmit)="!form.invalid && submit()" fxFlexOffset="40" fxFlex="20" fxFlexOffset.lg="35" fxFlex.lg="30" fxFlexOffset.md="30" fxFlex.md="40" fxFlexOffset.sm="20" fxFlex.sm="60" fxFlexOffset.xs="1" fxFlex.xs="98">
+        <mat-form-field appearance="outline">
+            <mat-label>
+                Email
+            </mat-label>
+
+            <input type="email" name="email" matInput placeholder="Email" formControlName="email" required>
+            
+            <mat-error align="start" *ngIf="errors.email" class="form__error">
+                {{ errors.email }}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>
+                Password
+            </mat-label>
+
+            <input type="password" name="password" matInput placeholder="Password" formControlName="password" required>
+            
+            <mat-error align="start" *ngIf="errors.password" class="form__error">
+                {{ errors.password }}
+            </mat-error>
+        </mat-form-field>
+
+        <button type="submit" mat-flat-button color="primary" [disabled]="loading">
+            sign in
+        </button>
+
+        <button type="button" mat-stroked-button color="primary" [disabled]="loading" routerLink="/signup">
+            sign up
+        </button>
+    </form>
+</div>

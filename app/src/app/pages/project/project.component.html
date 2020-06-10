@@ -1,0 +1,37 @@
+<header>
+    <h1>
+        {{ project }}
+    </h1>
+
+    <p>
+        all versions
+    </p>
+</header>
+
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+
+<mat-toolbar>
+    <mat-toolbar-row>
+        <button mat-icon-button back-button>
+            <mat-icon>
+                arrow_back
+            </mat-icon>
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-list *ngIf="documents.length > 0">
+    <mat-list-item *ngFor="let document of documents | orderBy : 'version' : true" matRipple [routerLink]="document.version">
+        <div class="version">
+            {{ document.version }}
+        </div>
+
+        <div class="notes">
+            {{ document.description }}
+        </div>
+
+        <div class="date">
+            {{ document.date.published | date : 'yyyy/MM/dd HH:mm' }}
+        </div>
+    </mat-list-item>
+</mat-list>

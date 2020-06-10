@@ -1,0 +1,32 @@
+<header>
+    <h1>
+        {{ project }}
+    </h1>
+
+    <p>
+        {{ version }}
+    </p>
+</header>
+
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+
+<mat-toolbar>
+    <mat-toolbar-row>
+        <button mat-icon-button back-button>
+            <mat-icon>
+                arrow_back
+            </mat-icon>
+        </button>
+
+        <div spacer></div>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-list *ngIf="endpoints.length > 0">
+    <mat-list-item *ngFor="let endpoint of endpoints | orderBy : 'title'" matRipple [routerLink]="endpoint.endpointId">
+        <div class="method">
+            {{ endpoint.method }}
+        </div>
+        {{ endpoint.title }}
+    </mat-list-item>
+</mat-list>

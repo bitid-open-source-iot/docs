@@ -1,0 +1,45 @@
+<mat-toolbar>
+    <mat-toolbar-row>
+        <label for="verify account page">
+            verify account
+        </label>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+
+<div fxLayout="row" fxFlexOffset.xs="1" fxFlex.xs="98">
+    <form [formGroup]="form" (ngSubmit)="!form.invalid && submit()" fxFlexOffset="40" fxFlex="20" fxFlexOffset.lg="35" fxFlex.lg="30" fxFlexOffset.md="30" fxFlex.md="40" fxFlexOffset.sm="20" fxFlex.sm="60" fxFlexOffset.xs="1" fxFlex.xs="98">
+        <mat-form-field appearance="outline">
+            <mat-label>
+                Email
+            </mat-label>
+
+            <input type="email" name="email" matInput placeholder="Email" formControlName="email" required>
+            
+            <mat-error align="start" *ngIf="errors.email" class="form__error">
+                {{ errors.email }}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>
+                Verification Code
+            </mat-label>
+
+            <input type="number" name="code" matInput placeholder="Verification Code" formControlName="code" required>
+            
+            <mat-error align="start" *ngIf="errors.code" class="form__error">
+                {{ errors.code }}
+            </mat-error>
+        </mat-form-field>
+
+        <button type="submit" mat-flat-button color="primary" [disabled]="loading">
+            verify now
+        </button>
+
+        <button type="button" mat-stroked-button color="primary" [disabled]="loading" routerLink="/signin">
+            sign in
+        </button>
+    </form>
+</div>

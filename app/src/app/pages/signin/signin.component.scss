@@ -1,0 +1,14 @@
+label {
+    width:      100%;
+    text-align: center;
+}
+form {
+    padding-top: 20px;
+    button,
+    mat-form-field {
+        width: 100%;
+    }
+    button {
+        margin-top: 20px;
+    }
+}
