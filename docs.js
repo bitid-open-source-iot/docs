@@ -1,6 +1,7 @@
 var Q           = require('q');
 var db          = require('./db/mongo');
 var cors        = require('cors');
+var auth        = require('./lib/auth');
 var http        = require('http');
 var chalk       = require('chalk');
 var logger      = require('./lib/logger');
