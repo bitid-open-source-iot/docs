@@ -1,0 +1,74 @@
+<mat-toolbar color="primary">
+    <button mat-icon-button class="menu-toggle" (click)="menu.toggle()">
+        <mat-icon>
+            menu
+        </mat-icon>
+    </button>
+
+    <div class="page-label spacer">
+        <a [routerLink]="['/', description]">{{ description }}</a> / <a [routerLink]="['/', description, version]">{{ version }}</a> / <a [routerLink]="['/', description, version, routeId]">{{ routeId }}</a> / {{ endpointId }}
+    </div>
+</mat-toolbar>
+
+<mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading"></mat-progress-bar>
+
+<div class="page-body">
+    <div class="container" *ngIf="endpoint">
+        <h1>
+            {{ endpoint.title }}
+        </h1>
+
+        <p>
+            {{ endpoint.description }}
+        </p>
+
+        <table>
+            <tr>
+                <th>
+                    method
+                </th>
+                <th>
+                    url
+                </th>
+                <th>
+                    scopes
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    {{ endpoint.method }}
+                </td>
+                <td allow-select>
+                    {{ endpoint.url }}
+                </td>
+                <td>
+                    {{ endpoint.scopes }}
+                </td>
+            </tr>
+        </table>
+        <h2>
+            request
+
+            <div class="spacer"></div>
+
+            <button mat-icon-button (click)="copy(endpoint.request)">
+                <mat-icon svgIcon="copy"></mat-icon>
+            </button>
+        </h2>
+        <code>
+            <pre allow-select>{{ endpoint.request | json }}</pre>
+        </code>
+        <h2>
+            response
+
+            <div class="spacer"></div>
+
+            <button mat-icon-button (click)="copy(endpoint.response)">
+                <mat-icon svgIcon="copy"></mat-icon>
+            </button>
+        </h2>
+        <code>
+            <pre allow-select>{{ endpoint.response | json }}</pre>
+        </code>
+    </div>
+</div>

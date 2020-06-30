@@ -128,14 +128,14 @@ var module = function() {
             });
         },
 
-        updateSubscriber: (req, res) => {
+        updatesubscriber: (req, res) => {
             var args = {
                 'req': req,
                 'res': res
             };
 
             var myModule = new dal.module();
-            myModule.projects.updateSubscriber(args)
+            myModule.projects.updatesubscriber(args)
             .then(args => {
                 __responder.success(req, res, args.result);
             }, err => {
@@ -159,6 +159,21 @@ var module = function() {
             "hiddenErrors": []
         },
 
+        add: (req, res) => {
+            var args = {
+                'req': req,
+                'res': res
+            };
+
+            var myModule = new dal.module();
+            myModule.documentation.add(args)
+            .then(args => {
+                __responder.success(req, res, args.result);
+            }, err => {
+                __responder.error(req, res, err);
+            });
+        },
+
         get: (req, res) => {
             var args = {
                 'req': req,
@@ -166,14 +181,8 @@ var module = function() {
             };
 
             var myModule = new dal.module();
-
-            myModule.projects.get(args)
-            .then(myModule.documentation.get, null)
+            myModule.documentation.get(args)
             .then(args => {
-                args.result.project = {
-                    'projectId':    args.project._id,
-                    'description':  args.project.description
-                };
                 __responder.success(req, res, args.result);
             }, err => {
                 __responder.error(req, res, err);
@@ -187,8 +196,37 @@ var module = function() {
             };
 
             var myModule = new dal.module();
-            myModule.projects.get(args)
-            .then(myModule.documentation.list, null)
+            myModule.documentation.list(args)
+            .then(args => {
+                __responder.success(req, res, args.result);
+            }, err => {
+                __responder.error(req, res, err);
+            });
+        },
+
+        update: (req, res) => {
+            var args = {
+                'req': req,
+                'res': res
+            };
+
+            var myModule = new dal.module();
+            myModule.documentation.update(args)
+            .then(args => {
+                __responder.success(req, res, args.result);
+            }, err => {
+                __responder.error(req, res, err);
+            });
+        },
+
+        delete: (req, res) => {
+            var args = {
+                'req': req,
+                'res': res
+            };
+
+            var myModule = new dal.module();
+            myModule.documentation.delete(args)
             .then(args => {
                 __responder.success(req, res, args.result);
             }, err => {

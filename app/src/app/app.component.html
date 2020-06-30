@@ -1,1 +1,41 @@
-<router-outlet></router-outlet>
+<mat-sidenav-container [hasBackdrop]="true">
+    <mat-sidenav mode="over" [disableClose]="true">
+        <mat-toolbar color="primary">
+            <img class="logo" src="./assets/icons/icon-512x512.png">
+
+            <label class="page-label spacer">
+                Documentation
+            </label>
+
+            <button mat-icon-button (click)="menu.toggle()">
+                <mat-icon>
+                    close
+                </mat-icon>
+            </button>
+        </mat-toolbar>
+
+        <mat-list>
+            <mat-list-item routerLinkActive="active" routerLink="/" (click)="menu.close()" matRipple>
+                <mat-icon>
+                    description
+                </mat-icon>
+    
+                projects
+            </mat-list-item>
+
+            <mat-list-item (click)="logout()" matRipple>
+                <mat-icon>
+                    exit_to_app
+                </mat-icon>
+
+                sign out
+            </mat-list-item>
+        </mat-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+<app-splashscreen></app-splashscreen>

@@ -1,0 +1,40 @@
+<mat-toolbar color="primary">
+    <button mat-icon-button class="menu-toggle" (click)="menu.toggle()">
+        <mat-icon>
+            menu
+        </mat-icon>
+    </button>
+
+    <div class="page-label spacer">
+        <a [routerLink]="['/', description]">{{ description }}</a> / {{ version }}
+    </div>
+
+    <search placeholder="filter routes"></search>
+</mat-toolbar>
+
+<mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading"></mat-progress-bar>
+
+<div class="page-body">
+    <table mat-table [dataSource]="routes">
+        <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef text-uppercase>
+                title
+            </th>
+            <td mat-cell *matCellDef="let element" text-uppercase>
+                {{ element.title }}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef text-uppercase>
+                description
+            </th>
+            <td mat-cell *matCellDef="let element" text-uppercase>
+                {{ element.description }}
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columns; sticky: true;"></tr>
+        <tr mat-row *matRowDef="let row; columns: columns;" [routerLink]="row.routeId"></tr>
+    </table>
+</div>

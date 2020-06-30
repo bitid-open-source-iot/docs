@@ -1,0 +1,35 @@
+.mat-column-method {
+    span {
+        color:              #FFF;
+        width:              40px;
+        height:             40px;
+        display:            flex;
+        font-size:          12px;
+        line-height:        12px;
+        align-items:        center;
+        border-radius:      100%;
+        text-transform:     uppercase;
+        justify-content:    center;
+        background-color:   #000;
+    }
+    .ws {
+        background-color: #3860AD;
+    }
+    .put {
+        background-color: #0B8847;
+    }
+    .get {
+        background-color: #FCA909;
+    }
+    .post {
+        background-color: #D82E27;
+    }
+}
+.mat-column-title,
+.mat-column-description {
+    padding-right: 15px;
+}
+.mat-column-description {
+    font-size:      12px;
+    line-height:    12px;
+}

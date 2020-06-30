@@ -1,0 +1,42 @@
+h1 {
+    margin-top:     20px;
+    font-weight:    400;
+    text-transform: uppercase;
+}
+p {
+    padding:            10px;
+    border-radius:      4px;
+    background-color:   #FFF;
+}
+table {
+    overflow:           hidden;
+    border-radius:      4px;
+    margin-bottom:      20px;
+    border-collapse:    collapse;
+    text-align-last:    left;
+    th {
+        color:              #FFF;
+        font-weight:        500;
+        text-transform:     uppercase;
+        background-color:   #2196F3;
+    }
+    th, td {
+        height:     40px;
+        padding:    0px 10px;
+    }
+    td {
+        background-color: #FFFFFF;
+    }
+}
+h2 {
+    display:        flex;
+    font-weight:    400;
+    align-items:    center;
+    flex-direction: row;
+    text-transform: uppercase;
+}
+code pre {
+    padding:            10px;
+    border-radius:      4px;
+    background-color:   #FFF;
+}

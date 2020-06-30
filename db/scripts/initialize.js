@@ -9,7 +9,17 @@ db.tblProjects.insert({
 			]
 		}
 	},
+	"author": {
+		"name": {
+			"last": 	"",
+			"first": 	""
+		},
+		"email": 	"",
+		"number": 	"",
+		"company": 	""
+	},
 	"_id": 			ObjectId("000000000000000000000001"),
+	"icon":			"xxx",
 	"serverDate": 	ISODate(),
 	"description":	"xxx"
 });
@@ -50,7 +60,15 @@ db.tblDocumentation.insert({
 		}
 	],
 	"_id": 			ObjectId("000000000000000000000001"),
+	"date": 		ISODate(),
 	"version":		"0.0.1",
-	"projectId":	"xxx",
+	"projectId":	ObjectId("000000000000000000000001"),
 	"serverDate": 	ISODate()
+});
+
+db.tblDocumentation.createIndex({
+    "version":		1,
+    "projectId":	1
+}, {
+    "unique": true
 });

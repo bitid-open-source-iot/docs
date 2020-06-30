@@ -72,13 +72,25 @@ exports.call = (args) => {
 			});
 			break;
 		case('remove'):
-			collection.removeOne(args.params, (err, result) => {
+			collection.deleteMany(args.params, (err, result) => {
 				if (err) {
-					deferred.reject(err);
+					if (args.allowNoRecordsFound) {
+						deferred.resolve({
+							'n':	0,
+							'ok': 	0
+						});
+					} else {
+						deferred.reject(err);
+					};
 				} else {
 					if (typeof(result) !== 'undefined') {
-						if (result.result.ok == 1) {
+						if (result.result.ok > 0) {
 							deferred.resolve(result.result);
+						} else if (args.allowNoRecordsFound) {
+							deferred.resolve({
+								'n':	0,
+								'ok': 	0
+							});
 						} else {
 							deferred.reject({
 								'code': 		70,
@@ -181,7 +193,6 @@ exports.call = (args) => {
 				};
 			});
 			break;
-					
 		default:
 			deferred.reject({
 				'code': 		503,

@@ -1,83 +1,219 @@
-
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
 @import '~@angular/material/theming';
-// Plus imports for other components in your app.
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
-@include mat-core();
+$mat-myapp-primary: (
+    50 : #000,
+    100 : #000,
+    200 : #000,
+    300 : #000,
+    400 : #000,
+    500 : #000,
+    600 : #000,
+    700 : #000,
+    800 : #000,
+    900 : #000,
+    A100 : #000,
+    A200 : #000,
+    A400 : #000,
+    A700 : #000,
+    contrast: (
+        50 : #FFF,
+        100 : #FFF,
+        200 : #FFF,
+        300 : #FFF,
+        400 : #FFF,
+        500 : #FFF,
+        600 : #FFF,
+        700 : #FFF,
+        800 : #FFF,
+        900 : #FFF,
+        A100 : #FFF,
+        A200 : #FFF,
+        A400 : #FFF,
+        A700 : #FFF,
+    )
+);
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$documentation-primary: mat-palette($mat-indigo);
-$documentation-accent: mat-palette($mat-pink, A200, A100, A400);
+$primary: mat-palette($mat-myapp-primary);
+$accent: mat-palette($mat-light-blue);
 
-// The warn palette is optional (defaults to red).
-$documentation-warn: mat-palette($mat-red);
+$theme: mat-light-theme($primary, $accent);
 
-// Create the theme object (a Sass map containing all of the palettes).
-$documentation-theme: mat-light-theme($documentation-primary, $documentation-accent, $documentation-warn);
+@include angular-material-theme($theme);
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include angular-material-theme($documentation-theme);
-
-/* You can add global styles to this file, and also import other style files */
-html, body {
-    margin:                 0;
-    height:                 100%;
-    font-family:            Roboto, "Helvetica Neue", sans-serif;
+* {
     user-select:            none;
-    text-transform:         uppercase;
     -ms-user-select:        none;
     -moz-user-select:       none;
-    -khtml-user-select:     none;
     -webkit-user-select:    none;
-    -webkit-touch-callout:  none;
-    h1, h2, h3, h4, h5, p {
-        margin:     0px;
-        padding:    0px;
+}
+html, body {
+    height: 100%;
+}
+body {
+    margin:         0;
+    font-family:    Roboto, "Helvetica Neue", sans-serif;
+}
+form {
+    padding:        10px;
+    display:        flex;
+    flex-direction: column;
+    mat-form-field {
+        flex: 1 auto;
     }
-    a {
-        color:              #000;
-        text-transform:     lowercase;
-        text-decoration:    none;
+    [mat-flat-button],
+    [mat-stroked-button] {
+        height:             50px;
+        display:            flex;
+        font-size:          16px;
+        font-weight:        400;
+        align-items:        center;
+        text-transform:     uppercase;
+        justify-content:    center;
+        .mat-spinner circle,
+        .mat-progress-spinner circle {
+            stroke: #FFFFFF;
+        }
     }
 }
-button{
-    text-transform: uppercase;
-}
-header {
-    color:              #FFF;
-    display:            flex;
-    padding:            15px;
-    min-height:         25vh;
-    align-items:        center;
-    flex-direction:     column;
-    justify-content:    center;
-    background-color:   #000;
-    h1 {
-        text-align: center;
-    }
-    p {
-        margin: 15px;
+.mat-snack-bar-container {
+    text-align:     center !important;
+    border-radius:  25px !important;
+    span {
+        justify-content: center !important;
     }
 }
-mat-list {
-    padding: 0px !important;
+simple-snack-bar {
+    justify-content: center !important;
 }
-[spacer] {
+.toast-error {
+    text-transform:     uppercase;
+    background-color:   #F44336 !important;
+}
+.toast-success {
+    text-transform:     uppercase;
+    background-color:   #4CAF50 !important;
+}
+.spacer {
     flex: 1 auto;
 }
+.page-body {
+    height:     calc(100% - 56px);
+    overflow-y: auto;
+}
+.page-label {
+    font-size:      14px;
+    text-transform: uppercase;
+}
+mat-toolbar {
+    height:     56px !important;
+    min-height: 56px !important;
+    a {
+        color:          #FFF;
+        text-decoration: none;
+    }
+}
+mat-progress-bar {
+    margin-top: -4px;
+}
+.menu-toggle {
+    margin-right: 15px !important;
+}
+[margin-top] {
+    margin-top: 20px !important;
+}
+[text-uppercase] {
+    text-transform: uppercase;
+}
+[text-lowercase] {
+    text-transform: lowercase;
+}
+[text-capitalize] {
+    text-transform: capitalize;
+}
+table {
+    width: 100%;
+    .mat-row {
+        cursor:     pointer;
+        outline:    none !important;
+    }
+    .mat-header-row {
+        height: 30px !important;
+    }
+}
+.share-dialog,
+.delete-dialog,
+.unsubscribe-dialog {
+    mat-dialog-container {
+        width: 500px;
+        mat-toolbar {
+            font-size:      16px;
+            font-weight:    400;
+            text-transform: uppercase;
+        }
+        padding: 0px !important;
+    }
+}
+.tariff-dialog,
+.subscribers-dialog {
+    mat-dialog-container {
+        mat-toolbar {
+            font-size:      16px;
+            font-weight:    400;
+            text-transform: uppercase;
+        }
+        top:            0px;
+        left:           0px;
+        width:          100%;
+        right:          0px;
+        bottom:         0px;
+        padding:        0px !important;
+        position:       fixed;
+        border-radius:  0px;
+    }
+}
+@media screen and (max-width: 600px) {
+    .share-dialog,
+    .delete-dialog,
+    .unsubscribe-dialog {
+        mat-dialog-container {
+            top:            0px;
+            left:           0px;
+            width:          100%;
+            right:          0px;
+            bottom:         0px;
+            position:       fixed;
+            border-radius:  0px;
+        }
+    }
+}
 [allow-select] {
-    user-select:            text !important;
-    -ms-user-select:        text !important;
-    -moz-user-select:       text !important;
-    -khtml-user-select:     text !important;
-    -webkit-user-select:    text !important;
-    -webkit-touch-callout:  text !important;
+    user-select:            text;
+    -ms-user-select:        text;
+    -moz-user-select:       text;
+    -webkit-user-select:    text;
+}
+.container {
+    width:  60%;
+    margin: auto;
+}
+@media screen and (max-width: 1500px) {
+    .container {
+        width: 70%;
+    }
+}
+@media screen and (max-width: 1200px) {
+    .container {
+        width: 80%;
+    }
+}
+@media screen and (max-width: 900px) {
+    .container {
+        width: 90%;
+    }
+}
+@media screen and (max-width: 600px) {
+    .container {
+        width: 100%;
+    }
 }

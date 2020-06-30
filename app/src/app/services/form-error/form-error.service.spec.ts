@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { FormerrorService } from './formerror.service';
+import { FormErrorService } from './form-error.service';
 
-describe('FormerrorService', () => {
+describe('FormErrorService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [FormerrorService]
+      providers: [FormErrorService]
     });
   });
 
-  it('should be created', inject([FormerrorService], (service: FormerrorService) => {
+  it('should be created', inject([FormErrorService], (service: FormErrorService) => {
     expect(service).toBeTruthy();
   }));
 });

@@ -4,13 +4,13 @@ var cors        = require('cors');
 var auth        = require('./lib/auth');
 var http        = require('http');
 var chalk       = require('chalk');
-var logger      = require('./lib/logger');
 var express     = require('express');
 var responder   = require('./lib/responder');
 var bodyParser  = require('body-parser');
+var healthcheck = require('@bitid/health-check');
 
 global.__base       = __dirname + '/';
-global.__logger     = new logger.module();
+global.__logger     = require('./lib/logger');
 global.__settings   = require('./config.json');
 global.__responder  = new responder.module();
 
@@ -59,7 +59,6 @@ try {
                                 var error = {
                                     "error": err
                                 };
-                                __logger.LogData('authCheck error: ' +  JSON.stringify(err));
                                 error.error.code             = 401;
                                 error.error.errors[0].code   = 401;
                                 __responder.error(req, res, error);
@@ -70,18 +69,21 @@ try {
                     });
                 };
 
-                app.use('/', express.static(__dirname + '/app/dist/docs'));
+                app.use('/', express.static(__dirname + '/app/dist/documentation'));
                 app.get('/*', (req, res) => {
-                    res.sendFile(__dirname + '/app/dist/docs/index.html');
+                    res.sendFile(__dirname + '/app/dist/documentation/index.html');
                 });
 
                 var projects = require('./api/projects');
                 app.use('/docs/projects', projects);
-                __logger.LogData('','Loaded ./api/docs/projects');
+                __logger.info('Loaded: ./api/docs/projects');
 
                 var documentation = require('./api/documentation');
                 app.use('/docs/documentation', documentation);
-                __logger.LogData('','Loaded ./api/docs/documentation');
+                __logger.info('Loaded: ./api/docs/documentation');
+
+                app.use('/health-check', healthcheck);
+                __logger.info('Loaded: ./health-check');
 
                 app.use((err, req, res, next) => {
                     portal.errorResponse.error.code               = 500;
@@ -97,7 +99,7 @@ try {
 
                 deferred.resolve(args);
             } catch(e) {
-                __logger.LogData('initAPI catch error: ' +  e);
+                __logger.error('initAPI catch error: ' +  e);
                 deferred.reject(e)
             };
 
@@ -141,11 +143,10 @@ try {
         },
 
         logger: (args) => {
-            var deferred    = Q.defer();
+            var deferred = Q.defer();
 
             try {
-                __logger.init(args.settings.logger);
-                __logger.LogData('','Logger Init');
+                __logger.init();
                 deferred.resolve(args);
             } catch(err) {
                 deferred.reject(err);
@@ -161,7 +162,7 @@ try {
                 global.__database = database;
                 deferred.resolve(args);
             }, err => {
-                __logger.LogData('Database Connection Error: ' +  err);
+                __logger.error('Database Connection Error: ' +  err);
                 deferred.reject(err);
             });
 

@@ -1,8 +1,7 @@
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
-import { LocalstorageService }  from '../../services/localstorage/localstorage.service';
+import { environment } from 'src/environments/environment';
+import { LocalstorageService }  from '../localstorage/localstorage.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
@@ -14,12 +13,16 @@ export class ApiService {
     private email: string;
     private token: string;
 
-    public async put(url, endpoint, payload, settings?) {
+    public async put(url, endpoint, payload) {
         this.email = this.localstorage.get('email');
 
-        if (!this.email || typeof(this.email) == "undefined") {
+        if (typeof(this.email) == "undefined" || this.email == null || this.email == "") {
             this.localstorage.clear();
-            this.router.navigate(['/signin'])
+            this.router.navigate(['/signin']);
+            return {
+                'error': {},
+                'ok': false
+            };
         };
         
         const options = {
@@ -46,13 +49,17 @@ export class ApiService {
         });
     };
 
-    public async post(url, endpoint, payload, settings?) {
+    public async post(url, endpoint, payload) {
         this.email = this.localstorage.get('email');
         this.token = this.localstorage.get('token');
 
-        if (typeof(this.token) == "undefined" || (typeof(this.email) == "undefined")) {
+        if (typeof(this.token) == "undefined" || this.token == null || this.token == "" || typeof(this.email) == "undefined" || this.email == null || this.email == "") {
             this.localstorage.clear();
-            this.router.navigate(['/signin'])
+            this.router.navigate(['/signin']);
+            return {
+                'error': {},
+                'ok': false
+            };
         };
         
         const options = {
@@ -63,8 +70,8 @@ export class ApiService {
         };
 
         payload.header = {
-           'email':         this.email,
-           'appId':  environment.appId
+           'email': this.email,
+           'appId': environment.appId
         };
 
         return await this.http.post(url + endpoint, payload, options)
@@ -75,8 +82,13 @@ export class ApiService {
                 'result': response
             };
         })
-        .catch(error => {
-            return this.error(error);
+        .catch(async error => {
+            const response = await this.error(error);
+            if (response.error.code == 401) {
+                this.localstorage.clear();
+                this.router.navigate(['/signin']);
+            };
+            return response;
         });
     };
 

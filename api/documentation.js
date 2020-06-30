@@ -5,6 +5,11 @@ router.use(function timeLog(req, res, next) {
     next();
 });
 
+router.post('/add', (req, res) => {
+    var myModule = new bll.module();
+    myModule.documentation.add(req, res);
+});
+
 router.post('/get', (req, res) => {
     var myModule = new bll.module();
     myModule.documentation.get(req, res);
@@ -13,6 +18,16 @@ router.post('/get', (req, res) => {
 router.post('/list', (req, res) => {
     var myModule = new bll.module();
     myModule.documentation.list(req, res);
+});
+
+router.post('/update', (req, res) => {
+    var myModule = new bll.module();
+    myModule.documentation.update(req, res);
+});
+
+router.post('/delete', (req, res) => {
+    var myModule = new bll.module();
+    myModule.documentation.delete(req, res);
 });
 
 module.exports = router;
