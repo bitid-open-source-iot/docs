@@ -24,7 +24,7 @@ try {
                     "code":         401,
                     "reason":       "Reporting Error",
                     "message":      "Invalid Credentials",
-                    "locaction":    "portal",
+                    "location":    "portal",
                     "locationType": "header"
                 }]
             },

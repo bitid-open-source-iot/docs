@@ -15,23 +15,27 @@
 
     <mat-form-field appearance="outline">
         <mat-label text-uppercase>
-            Password
+            Verification Code
         </mat-label>
         
-        <input matInput type="password" name="password" placeholder="password" formControlName="password" required>
+        <input matInput type="number" name="code" placeholder="code" formControlName="code" required>
 
-        <mat-error *ngIf="errors.password">
-            {{ errors.password }}
+        <mat-hint>
+            Check your email for code!
+        </mat-hint>
+
+        <mat-error *ngIf="errors.code">
+            {{ errors.code }}
         </mat-error>
     </mat-form-field>
 
     <button type="submit" mat-flat-button color="primary">
-        {{ loading ? '' : 'sign in' }}
+        {{ loading ? '' : 'verify' }}
 
         <mat-progress-spinner mode="indeterminate" diameter="30" *ngIf="loading"></mat-progress-spinner>
     </button>
 
-    <button type="button" mat-stroked-button color="primary" routerLink="/signup">
-        sign up
+    <button type="button" mat-stroked-button color="primary" routerLink="/signin">
+        sign in
     </button>
 </form>

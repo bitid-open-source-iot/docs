@@ -8,7 +8,7 @@ var module = function() {
                 "errors": [{
                     "reason":       "General Error",
                     "message":      "Projects Error",
-                    "locaction":    "bllProjects",
+                    "location":    "bllProjects",
                     "locationType": "body"
                 }],
                 "code":     401,
@@ -150,7 +150,7 @@ var module = function() {
                 "errors": [{
                     "reason":       "General Error",
                     "message":      "Documentation Error",
-                    "locaction":    "bllDocumentation",
+                    "location":    "bllDocumentation",
                     "locationType": "body"
                 }],
                 "code":     401,
