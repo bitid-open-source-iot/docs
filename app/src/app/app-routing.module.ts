@@ -24,7 +24,7 @@ const routes: Routes = [
         'loadChildren': () => import('./pages/terms-and-conditions/terms-and-conditions.module').then(m => m.TermsAndConditionsModule)
     },
     {
-        'path': '**',
+        'path': '',
         'canActivate': [AuthManager],
         'loadChildren': () => import('./pages/projects/projects.module').then(m => m.ProjectsModule)
     }
