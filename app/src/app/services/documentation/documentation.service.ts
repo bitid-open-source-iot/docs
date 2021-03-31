@@ -9,17 +9,17 @@ import { BehaviorSubject } from 'rxjs';
 
 export class DocumentationService {
 
-    public data:            Documentation[]                   = [];
-    public documentation:   BehaviorSubject<Documentation>    = new BehaviorSubject<Documentation>(null);
+    public data: Documentation[] = [];
+    public documentation: BehaviorSubject<Documentation> = new BehaviorSubject<Documentation>(null);
 
-    constructor(private api: ApiService) {};
+    constructor(private api: ApiService) { };
 
     public async add(params) {
         const response = await this.api.post(environment.docs, '/docs/documentation/add', params);
-        
+
         if (response.ok) {
-            let document:   Documentation   = params;
-            document.documentId             = response.result.documentId;
+            let document: Documentation = params;
+            document.documentId = response.result.documentId;
             this.data.push(document);
         };
 
@@ -38,7 +38,7 @@ export class DocumentationService {
 
     public async list(params) {
         const response = await this.api.post(environment.docs, '/docs/documentation/list', params);
-        
+
         if (response.ok) {
             this.data = response.result;
         };
@@ -48,7 +48,7 @@ export class DocumentationService {
 
     public async update(params) {
         const response = await this.api.post(environment.docs, '/docs/documentation/update', params);
-        
+
         if (response.ok) {
             for (let i = 0; i < this.data.length; i++) {
                 if (this.data[i].documentId == params.documentId) {
@@ -65,7 +65,7 @@ export class DocumentationService {
 
     public async delete(params) {
         const response = await this.api.post(environment.docs, '/docs/documentation/delete', params);
-        
+
         if (response.ok) {
             for (let i = 0; i < this.data.length; i++) {
                 if (this.data[i].documentId == params.documentId) {
@@ -81,12 +81,12 @@ export class DocumentationService {
 }
 
 export interface Documentation {
-	'project'?: {
-		'icon'?:        string;
-		'description'?: string;
-	};
-    'date'?:        string;
-    'routes'?:      any[];
-    'version'?:     string;
-    'documentId'?:  string;
+    'project'?: {
+        'icon'?: string;
+        'description'?: string;
+    };
+    'date'?: string;
+    'routes'?: any[];
+    'version'?: string;
+    'documentId'?: string;
 }

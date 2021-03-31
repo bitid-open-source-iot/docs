@@ -23,6 +23,7 @@ import { HistoryService } from './services/history/history.service';
 import { ProjectsService } from './services/projects/projects.service';
 import { FormErrorService } from './services/form-error/form-error.service';
 import { LocalstorageService } from './services/localstorage/localstorage.service';
+import { DocumentationService } from './services/documentation/documentation.service';
 
 /* --- COMPONENTS --- */
 import { AppComponent } from './app.component';
@@ -59,7 +60,8 @@ import { environment } from '../environments/environment';
         HistoryService,
         ProjectsService,
         FormErrorService,
-        LocalstorageService
+        LocalstorageService,
+        DocumentationService
     ],
     bootstrap: [AppComponent]
 })

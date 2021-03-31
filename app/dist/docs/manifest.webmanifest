@@ -1,6 +1,6 @@
 {
-  "name": "Documentation",
-  "short_name": "Documentation",
+  "name": "docs",
+  "short_name": "docs",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",

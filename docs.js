@@ -1,30 +1,29 @@
-var Q           = require('q');
-var db          = require('./db/mongo');
-var cors        = require('cors');
-var auth        = require('./lib/auth');
-var http        = require('http');
-var chalk       = require('chalk');
-var express     = require('express');
-var responder   = require('./lib/responder');
-var bodyParser  = require('body-parser');
-var healthcheck = require('@bitid/health-check');
+const Q = require('q');
+const db = require('./db/mongo');
+const cors = require('cors');
+const auth = require('./lib/auth');
+const http = require('http');
+const chalk = require('chalk');
+const express = require('express');
+const responder = require('./lib/responder');
+const healthcheck = require('@bitid/health-check');
 
-global.__base       = __dirname + '/';
-global.__logger     = require('./lib/logger');
-global.__settings   = require('./config.json');
-global.__responder  = new responder.module();
+global.__base = __dirname + '/';
+global.__logger = require('./lib/logger');
+global.__settings = require('./config.json');
+global.__responder = new responder.module();
 
-try { 
+try {
     var portal = {
         errorResponse: {
             "error": {
-                "code":     401,
-                "message":  "Invalid Credentials",
-                "errors":[{
-                    "code":         401,
-                    "reason":       "Reporting Error",
-                    "message":      "Invalid Credentials",
-                    "location":    "portal",
+                "code": 401,
+                "message": "Invalid Credentials",
+                "errors": [{
+                    "code": 401,
+                    "reason": "Reporting Error",
+                    "message": "Invalid Credentials",
+                    "location": "portal",
                     "locationType": "header"
                 }]
             },
@@ -37,12 +36,12 @@ try {
             try {
                 var app = express();
                 app.use(cors());
-                app.use(bodyParser.urlencoded({
-                    'limit':          '50mb',
-                    'extended':       true,
+                app.use(express.urlencoded({
+                    'limit': '50mb',
+                    'extended': true,
                     'parameterLimit': 50000
                 }));
-                app.use(bodyParser.json({
+                app.use(express.json({
                     'limit': '50mb'
                 }));
 
@@ -53,25 +52,20 @@ try {
                                 'req': req,
                                 'res': res
                             })
-                            .then(result => {
-                                next(); 
-                            }, err => {
-                                var error = {
-                                    "error": err
-                                };
-                                error.error.code             = 401;
-                                error.error.errors[0].code   = 401;
-                                __responder.error(req, res, error);
-                            });
+                                .then(result => {
+                                    next();
+                                }, error => {
+                                    __responder.error(req, res, error);
+                                });
                         } else {
                             next();
                         };
                     });
                 };
 
-                app.use('/', express.static(__dirname + '/app/dist/documentation'));
+                app.use('/', express.static(__dirname + '/app/dist/docs'));
                 app.get('/*', (req, res) => {
-                    res.sendFile(__dirname + '/app/dist/documentation/index.html');
+                    res.sendFile(__dirname + '/app/dist/docs/index.html');
                 });
 
                 var projects = require('./api/projects');
@@ -86,10 +80,10 @@ try {
                 __logger.info('Loaded: ./health-check');
 
                 app.use((err, req, res, next) => {
-                    portal.errorResponse.error.code               = 500;
-                    portal.errorResponse.error.message            = 'Something broke';
-                    portal.errorResponse.error.errors[0].code     = 500;
-                    portal.errorResponse.error.errors[0].message  = 'Something broke';
+                    portal.errorResponse.error.code = 500;
+                    portal.errorResponse.error.message = 'Something broke';
+                    portal.errorResponse.error.errors[0].code = 500;
+                    portal.errorResponse.error.errors[0].message = 'Something broke';
                     portal.errorResponse.hiddenErrors.push(err.stack);
                     __responder.error(req, res, portal.errorResponse);
                 });
@@ -98,8 +92,8 @@ try {
                 server.listen(args.settings.localwebserver.port);
 
                 deferred.resolve(args);
-            } catch(e) {
-                __logger.error('initAPI catch error: ' +  e);
+            } catch (e) {
+                __logger.error('initAPI catch error: ' + e);
                 deferred.reject(e)
             };
 
@@ -133,13 +127,13 @@ try {
             };
 
             portal.logger(args)
-            .then(portal.api, null)
-            .then(portal.database, null)
-            .then(args => {
-                console.log('Webserver Running on port: ', args.settings.localwebserver.port);
-            }, err => {
-                console.log('Error Initializing: ', err);
-            });
+                .then(portal.api, null)
+                .then(portal.database, null)
+                .then(args => {
+                    console.log('Webserver Running on port: ', args.settings.localwebserver.port);
+                }, err => {
+                    console.log('Error Initializing: ', err);
+                });
         },
 
         logger: (args) => {
@@ -148,7 +142,7 @@ try {
             try {
                 __logger.init();
                 deferred.resolve(args);
-            } catch(err) {
+            } catch (err) {
                 deferred.reject(err);
             };
 
@@ -162,7 +156,7 @@ try {
                 global.__database = database;
                 deferred.resolve(args);
             }, err => {
-                __logger.error('Database Connection Error: ' +  err);
+                __logger.error('Database Connection Error: ' + err);
                 deferred.reject(err);
             });
 
@@ -173,7 +167,7 @@ try {
     portal.init({
         'settings': __settings
     });
-} catch(error) {
+} catch (error) {
     console.log('The following error has occurred: ', error.message);
 };
 

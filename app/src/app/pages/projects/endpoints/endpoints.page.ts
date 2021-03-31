@@ -7,25 +7,25 @@ import { Documentation, DocumentationService } from 'src/app/services/documentat
 import { OnInit, Component, OnDestroy, ViewChild } from '@angular/core';
 
 @Component({
-    selector:       'app-project-endpoints',
-    styleUrls:      ['./endpoints.page.scss'],
-    templateUrl:    './endpoints.page.html'
+    selector: 'app-project-endpoints',
+    styleUrls: ['./endpoints.page.scss'],
+    templateUrl: './endpoints.page.html'
 })
 
 export class ProjectEndpointsPage implements OnInit, OnDestroy {
-    
-    @ViewChild(SearchComponent, {'static': true}) private search: SearchComponent;
 
-    constructor(public menu: MenuService, private toast: ToastService, private route: ActivatedRoute, private service: DocumentationService) {};
+    @ViewChild(SearchComponent, { 'static': true }) private search: SearchComponent;
 
-    public columns:         string[]        = ['method', 'title', 'description'];
-    public loading:         boolean;
-    public routeId:         string;
-    public version:         string;
-    public endpoints:       any             = new MatTableDataSource();
-    public description:     string;
-    public documentation:   Documentation   = this.service.documentation.value;
-    public subscriptions:   any             = {};
+    constructor(public menu: MenuService, private toast: ToastService, private route: ActivatedRoute, private service: DocumentationService) { };
+
+    public columns: string[] = ['method', 'title', 'description'];
+    public loading: boolean;
+    public routeId: string;
+    public version: string;
+    public endpoints: any = new MatTableDataSource();
+    public description: string;
+    public documentation: Documentation = this.service.documentation.value;
+    public subscriptions: any = {};
 
     private async get() {
         this.loading = true;
@@ -38,23 +38,23 @@ export class ProjectEndpointsPage implements OnInit, OnDestroy {
                 'project',
                 'documentId'
             ],
-            'version':      this.version,
-            'description':  this.description
+            'version': this.version,
+            'description': this.description
         });
 
         this.loading = false;
 
         if (!response.ok) {
-            this.toast.error('there was an issue loading documentation!');
+            this.toast.error('there was an issue loading docs!');
         };
     };
 
     ngOnInit(): void {
         this.subscriptions.route = this.route.params.subscribe(params => {
-            this.routeId        = params.routeId;
-            this.version        = params.version;
-            this.description    = params.description;
-            if (typeof(this.documentation) != "undefined" && this.documentation != null) {
+            this.routeId = params.routeId;
+            this.version = params.version;
+            this.description = params.description;
+            if (typeof (this.documentation) != "undefined" && this.documentation != null) {
                 if (this.documentation.version != this.version || this.documentation.project.description != this.description) {
                     this.get();
                 };
@@ -67,12 +67,12 @@ export class ProjectEndpointsPage implements OnInit, OnDestroy {
             this.endpoints.filter = filter;
         });
 
-        this.subscriptions.documentation = this.service.documentation.subscribe(documentation => {
-            if (documentation) {
-                this.documentation = documentation;
-                for (let i = 0; i < documentation.routes.length; i++) {
-                    if (documentation.routes[i].routeId == this.routeId) {
-                        this.endpoints.data = documentation.routes[i].endpoints;
+        this.subscriptions.docs = this.service.documentation.subscribe(docs => {
+            if (docs) {
+                this.documentation = docs;
+                for (let i = 0; i < docs.routes.length; i++) {
+                    if (docs.routes[i].routeId == this.routeId) {
+                        this.endpoints.data = docs.routes[i].endpoints;
                         break;
                     };
                 };
@@ -83,7 +83,7 @@ export class ProjectEndpointsPage implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.subscriptions.route.unsubscribe();
         this.subscriptions.search.unsubscribe();
-        this.subscriptions.documentation.unsubscribe();
+        this.subscriptions.docs.unsubscribe();
     };
 
 }

@@ -3,7 +3,7 @@ export const environment = {
     "docs":         "http://127.0.0.1:15000",
     "appId":        "000000000000000000000012",
     "drive":        "https://drive.bitid.co.za",
-    "appName":      "Documentation",
+    "appName":      "docs",
     "production":   false,
     "roles": [
         {"value": 1, "title": "Read Only"},
@@ -26,10 +26,10 @@ export const environment = {
         {"url": "/docs/projects/unsubscribe", "role": 4},
         {"url": "/docs/projects/updatesubscriber", "role": 4},
 
-        {"url": "/docs/documentation/add", "role": 4},
-        {"url": "/docs/documentation/get", "role": 4},
-        {"url": "/docs/documentation/list", "role": 4},
-        {"url": "/docs/documentation/update", "role": 4},
-        {"url": "/docs/documentation/delete", "role": 5},
+        {"url": "/docs/docs/add", "role": 4},
+        {"url": "/docs/docs/get", "role": 4},
+        {"url": "/docs/docs/list", "role": 4},
+        {"url": "/docs/docs/update", "role": 4},
+        {"url": "/docs/docs/delete", "role": 5},
     ]
 };
