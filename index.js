@@ -7,6 +7,7 @@ const chalk = require('chalk');
 const express = require('express');
 const responder = require('./lib/responder');
 const healthcheck = require('@bitid/health-check');
+const ErrorResponse = require('./lib/error-response');
 
 global.__base = __dirname + '/';
 global.__logger = require('./lib/logger');
@@ -15,21 +16,6 @@ global.__responder = new responder.module();
 
 try {
     var portal = {
-        errorResponse: {
-            "error": {
-                "code": 401,
-                "message": "Invalid Credentials",
-                "errors": [{
-                    "code": 401,
-                    "reason": "Reporting Error",
-                    "message": "Invalid Credentials",
-                    "location": "portal",
-                    "locationType": "header"
-                }]
-            },
-            "hiddenErrors": []
-        },
-
         api: (args) => {
             var deferred = Q.defer();
 
@@ -79,19 +65,19 @@ try {
                 app.use('/health-check', healthcheck);
                 __logger.info('Loaded: ./health-check');
 
-                app.use((err, req, res, next) => {
-                    portal.errorResponse.error.code = 500;
-                    portal.errorResponse.error.message = 'Something broke';
-                    portal.errorResponse.error.errors[0].code = 500;
-                    portal.errorResponse.error.errors[0].message = 'Something broke';
-                    portal.errorResponse.hiddenErrors.push(err.stack);
-                    __responder.error(req, res, portal.errorResponse);
+                app.use((error, req, res, next) => {
+                    var err = new ErrorResponse();
+                    err.error.code = 500;
+                    err.error.message = 'Something broke';
+                    err.error.errors[0].code = 500;
+                    err.error.errors[0].message = 'Something broke';
+                    __responder.error(req, res, err);
                 });
 
                 var server = http.createServer(app);
-                server.listen(args.settings.localwebserver.port);
-
-                deferred.resolve(args);
+                server.listen(args.settings.localwebserver.port, () => {
+                    deferred.resolve(args);
+                });
             } catch (e) {
                 __logger.error('initAPI catch error: ' + e);
                 deferred.reject(e)
