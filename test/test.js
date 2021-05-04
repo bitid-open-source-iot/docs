@@ -126,7 +126,7 @@ describe('Projects', function () {
             });
     });
 
-    it('/docs/projects/updatesubscriber', function (done) {
+    it('/docs/projects/update-subscriber', function (done) {
         this.timeout(5000);
 
         tools.api.projects.updatesubscriber()
@@ -440,7 +440,7 @@ var tools = {
             updatesubscriber: () => {
                 var deferred = Q.defer();
 
-                tools.post('/docs/projects/updatesubscriber', {
+                tools.post('/docs/projects/update-subscriber', {
                     'role': 2,
                     'email': 'shared@email.com',
                     'projectId': projectId

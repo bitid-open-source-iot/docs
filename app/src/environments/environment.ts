@@ -13,23 +13,29 @@ export const environment = {
         {"value": 5, "title": "Owner"}
     ],
     "scopes": [
-        {"url": "/users/get", "role": 4},
+        "/users/get",
+        "/users/update",
         
-        {"url": "/drive/files/upload", "role": 4},
+        "/drive/files/upload",
 
-        {"url": "/docs/projects/add", "role": 4},
-        {"url": "/docs/projects/get", "role": 4},
-        {"url": "/docs/projects/list", "role": 4},
-        {"url": "/docs/projects/share", "role": 4},
-        {"url": "/docs/projects/update", "role": 4},
-        {"url": "/docs/projects/delete", "role": 5},
-        {"url": "/docs/projects/unsubscribe", "role": 4},
-        {"url": "/docs/projects/updatesubscriber", "role": 4},
+        "/docs/projects/add",
+        "/docs/projects/get",
+        "/docs/projects/list",
+        "/docs/projects/share",
+        "/docs/projects/update",
+        "/docs/projects/delete",
+        "/docs/projects/unsubscribe",
+        "/docs/projects/change-owner",
+        "/docs/projects/update-subscriber",
 
-        {"url": "/docs/docs/add", "role": 4},
-        {"url": "/docs/docs/get", "role": 4},
-        {"url": "/docs/docs/list", "role": 4},
-        {"url": "/docs/docs/update", "role": 4},
-        {"url": "/docs/docs/delete", "role": 5},
+        "/docs/documentation/add",
+        "/docs/documentation/get",
+        "/docs/documentation/list",
+        "/docs/documentation/share",
+        "/docs/documentation/update",
+        "/docs/documentation/delete",
+        "/docs/documentation/unsubscribe",
+        "/docs/documentation/change-owner",
+        "/docs/documentation/update-subscriber"
     ]
 };

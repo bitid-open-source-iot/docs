@@ -1,5 +1,5 @@
-var bll     = require('../bll/bll');
-var router  = require('express').Router();
+const bll = require('../bll/bll');
+const router = require('express').Router();
 
 router.use(function timeLog(req, res, next) {
     next();
@@ -40,7 +40,12 @@ router.post('/unsubscribe', (req, res) => {
     myModule.projects.unsubscribe(req, res);
 });
 
-router.post('/updatesubscriber', (req, res) => {
+router.post('/change-owner', (req, res) => {
+    var myModule = new bll.module();
+    myModule.projects.changeowner(req, res);
+});
+
+router.post('/update-subscriber', (req, res) => {
     var myModule = new bll.module();
     myModule.projects.updatesubscriber(req, res);
 });
